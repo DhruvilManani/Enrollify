@@ -163,6 +163,12 @@ function SignUpform() {
 
       if (response.ok) {
         const result = await response.json();
+
+        // Store token FIRST (ProtectedRoute checks this)
+        if (result.token) {
+          localStorage.setItem("token", result.token);
+        }
+
         localStorage.setItem("loggedInUser", data.email);
         const fetchedName = result.user?.firstname
           ? `${result.user.firstname} ${result.user.lastname || ''}`
@@ -182,9 +188,6 @@ function SignUpform() {
           }));
         }
 
-        if (result.token) {
-          localStorage.setItem("token", result.token);
-        }
         setIsLoading(false);
         navigate("/dashboard");
         return;
@@ -226,7 +229,7 @@ function SignUpform() {
         return;
       } else {
         const errorData = await response.json().catch(() => ({}));
-        console.warn("Error message from backend: ", errorData.message || "Failed to send OTP. Please try again.");
+        setErrorMsg(errorData.message || "Failed to send OTP. Please try again.");
         setIsLoading(false);
       }
     } catch (error) {

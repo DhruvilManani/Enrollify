@@ -84,12 +84,12 @@ function SignUpform() {
 
   const handleSignup = async () => {
     if (!data.firstName || !data.lastName || !data.gender || !data.role || !data.phone || !data.email || !data.password || !data.confirmPassword) {
-      // Alert removed: All fields are required
+      setErrorMsg("All fields are required.");
       return;
     }
 
     if (data.password !== data.confirmPassword) {
-      // Alert removed: Passwords do not match
+      setErrorMsg("Passwords do not match.");
       return;
     }
 
@@ -143,7 +143,7 @@ function SignUpform() {
   // ===== SIGN IN =====
   const handleSignin = async () => {
     if (!data.email || !data.password) {
-      // Alert removed: Please enter both email and password.
+      setErrorMsg("Please enter both email and password.");
       return;
     }
 
@@ -207,7 +207,7 @@ function SignUpform() {
   // ===== FORGOT PASSWORD =====
   const handleForgotPassword = async () => {
     if (!data.email) {
-      // Alert removed: Please enter your registered email
+      setErrorMsg("Please enter your registered email.");
       return;
     }
     
@@ -258,17 +258,17 @@ function SignUpform() {
 
   const handleResetPassword = async () => {
     if (data.otp.includes("")) {
-      // Alert removed: Enter complete OTP
+      setErrorMsg("Please enter the complete OTP.");
       return;
     }
 
     if (!data.newPassword || !data.confirmNewPassword) {
-      // Alert removed: Fill new password fields
+      setErrorMsg("Please fill in both password fields.");
       return;
     }
 
     if (data.newPassword !== data.confirmNewPassword) {
-      // Alert removed: Passwords do not match
+      setErrorMsg("Passwords do not match.");
       return;
     }
 

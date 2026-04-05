@@ -20,7 +20,8 @@ function ClientForm() {
       try {
         const res = await fetch(`${API_BASE}/api/subscriptions`);
         if (res.ok) {
-          const plans = await res.json();
+          const result = await res.json();
+          const plans = Array.isArray(result) ? result : result.data || [];
           const ids = {};
           for (const plan of plans) {
             const key = plan.name?.toLowerCase();
